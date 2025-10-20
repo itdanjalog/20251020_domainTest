@@ -1,0 +1,44 @@
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.5'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+description = 'Demo project for Spring Boot'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // [1] 스프링 웹
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // [2] 롬복
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    // [3] mysql jdbc
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // [2] JDBC (✅ 반드시 추가)
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
